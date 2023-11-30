@@ -1,6 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import InitCanvasKit, { Canvas } from 'canvaskit-wasm';
+import InitCanvasKit, { Canvas, CanvasKit } from 'canvaskit-wasm';
 import './Application.scss';
+
+const ckLoaded = InitCanvasKit();
+
+const initWebGpu = async (CK:CanvasKit)=>{
+  const navigatorGpu = (navigator as any).gpu;
+  if(navigatorGpu && CK.gpu){
+    const adapter = await navigatorGpu.requestAdapter();
+    const device = await adapter.requestDevice();
+    const gpu = CK.MakeGPUDeviceContext(device);
+    if(!gpu){
+      console.error('Failed to initialize WebGPU device context');
+    }
+    return gpu;
+  }
+  return null;
+}
+
+const ready = async function() {
+  const CK = await ckLoaded;
+  const gpu = await initWebGpu(CK);
+  return [CK, gpu];
+}();
 
 const Application: React.FC = () => {
   useEffect(() => {
@@ -27,6 +49,8 @@ const Application: React.FC = () => {
 
   return (
     <div>
+      <h2> Drop in replacement for HTML Canvas (e.g. node.js)</h2>
+      <img id="api1" width={300} height={300}></img>
       <canvas id='foo' width={300} height={300}></canvas>
     </div>
   );

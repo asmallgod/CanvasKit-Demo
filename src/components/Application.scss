@@ -8,3 +8,7 @@
 */
 
 @import './Theme.scss';
+
+canvas, img {
+  border: 1px dashed #AAA;
+}
