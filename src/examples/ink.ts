@@ -1,7 +1,7 @@
-import { Canvas, CanvasKit } from 'canvaskit-wasm';
+import { Canvas, CanvasKit, WebGPUDeviceContext } from 'canvaskit-wasm';
 import { MakeCanvasSurface, preventScrolling } from './utils';
 
-export function InkExample(CanvasKit: CanvasKit, gpu: any) {
+export function InkExample(CanvasKit: CanvasKit, gpu: WebGPUDeviceContext) {
   const surface = MakeCanvasSurface(CanvasKit, gpu, 'ink');
   if (!surface) {
     console.error('Could not make surface');

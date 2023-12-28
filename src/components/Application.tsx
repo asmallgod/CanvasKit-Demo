@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
-import InitCanvasKit, { Canvas, CanvasKit } from 'canvaskit-wasm';
+import InitCanvasKit from 'canvaskit-wasm';
 import './Application.scss';
-import { InkExample, PathExample, RectExample } from '@src/examples';
-
-
+import {
+  InkExample,
+  PathExample,
+  RectExample,
+  VertexAPI1,
+} from '@src/examples';
 
 const Application: React.FC = () => {
   useEffect(() => {
@@ -11,6 +14,7 @@ const Application: React.FC = () => {
       RectExample(CanvasKit);
       PathExample(CanvasKit);
       InkExample(CanvasKit, null);
+      VertexAPI1(CanvasKit, null);
     });
   }, []);
 
@@ -20,6 +24,7 @@ const Application: React.FC = () => {
       <canvas id='foo' width={300} height={300}></canvas>
       <canvas id='paths' width={300} height={300}></canvas>
       <canvas id='ink' width={300} height={300}></canvas>
+      <canvas id='vertex1' width={300} height={300}></canvas>
     </div>
   );
 };
